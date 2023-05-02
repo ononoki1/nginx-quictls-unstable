@@ -22,7 +22,7 @@ echo Build nginx.
 cd ..
 auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --add-module=modules/ngx_brotli --add-module=modules/ngx_http_geoip2_module \
---add-module=modules/headers-more-nginx-module --add-module=modules/nginx-rtmp-module \
+--add-module=modules/headers-more-nginx-module \
 --conf-path=/etc/nginx/nginx.conf \
 --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log \
 --pid-path=/var/run/nginx.pid --lock-path=/var/run/nginx.lock \
