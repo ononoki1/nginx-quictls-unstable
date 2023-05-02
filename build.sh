@@ -45,13 +45,10 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_upstream_random_module --without-http_upstream_zone_module \
 --with-openssl=modules/openssl \
 --with-openssl-opt="enable-ec_nistp_64_gcc_128 enable-ktls enable-weak-ssl-ciphers" \
-> /dev/null 2>&1
-make -j$(nproc) > /dev/null 2>&1
-
-zip -9qr nginx /github/home
-cp nginx.zip ../nginx
-
-# cp objs/nginx ..
+--with-cc-opt="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -fPIC -Wdate-time -D_FORTIFY_SOURCE=2" \
+--with-ld-opt="-Wl,-z,relro -Wl,-z,now -fPIC"
+make -j$(nproc)
+cp objs/nginx ..
 cd ..
 hash=$(sha256sum nginx | awk '{print $1}')
 patch=$(cat /github/workspace/patch)
