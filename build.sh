@@ -10,10 +10,10 @@ cmake git libgd-dev libmaxminddb-dev libpcre2-dev mercurial rsync zlib1g-dev > /
 echo Fetch NGINX source code.
 hg clone https://hg.nginx.org/nginx
 hg clone -b quic https://hg.nginx.org/nginx-quic
-rsync -r nginx-quic nginx
+rsync -r nginx nginx-quic
 echo Fetch quictls source code.
-mkdir nginx/modules
-cd nginx/modules
+mkdir nginx-quic/modules
+cd nginx-quic/modules
 git clone --depth 1 --recursive https://github.com/quictls/openssl > /dev/null 2>&1
 echo Fetch additional dependencies.
 git clone --depth 1 --recursive https://github.com/google/ngx_brotli > /dev/null 2>&1
