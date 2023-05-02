@@ -10,7 +10,7 @@ cmake git libgd-dev libmaxminddb-dev libpcre2-dev mercurial rsync zlib1g-dev > /
 echo Fetch NGINX source code.
 hg clone https://hg.nginx.org/nginx > /dev/null 2>&1
 hg clone -b quic https://hg.nginx.org/nginx-quic > /dev/null 2>&1
-rsync -r nginx nginx-quic
+rsync -r nginx nginx-quic > /dev/null 2>&1
 echo Fetch quictls source code.
 mkdir nginx-quic/modules
 cd nginx-quic/modules
