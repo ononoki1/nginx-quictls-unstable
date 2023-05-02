@@ -6,11 +6,9 @@ echo deb http://deb.debian.org/debian unstable main contrib non-free non-free-fi
 apt-get update > /dev/null 2>&1
 apt-get install --allow-change-held-packages --allow-downgrades --allow-remove-essential \
 -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold -fy \
-cmake git libgd-dev libmaxminddb-dev libpcre2-dev mercurial rsync zlib1g-dev > /dev/null 2>&1
-echo Fetch source code.
-hg clone https://hg.nginx.org/nginx
+cmake git libgd-dev libmaxminddb-dev libpcre2-dev mercurial zlib1g-dev > /dev/null 2>&1
+echo Fetch NGINX source code.
 hg clone https://hg.nginx.org/nginx-quic
-rsync -r nginx-quic/ nginx
 echo Fetch quictls source code.
 mkdir nginx/modules
 cd nginx/modules
