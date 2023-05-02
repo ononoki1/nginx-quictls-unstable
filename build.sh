@@ -12,12 +12,12 @@ hg clone -b quic https://hg.nginx.org/nginx-quic > /dev/null 2>&1
 echo Fetch quictls source code.
 mkdir nginx-quic/modules
 cd nginx-quic/modules
-git clone --depth 1 https://github.com/quictls/openssl > /dev/null 2>&1
+git clone --depth 1 --recursive https://github.com/quictls/openssl > /dev/null 2>&1
 echo Fetch additional dependencies.
 git clone --depth 1 --recursive https://github.com/google/ngx_brotli > /dev/null 2>&1
-git clone --depth 1 https://github.com/leev/ngx_http_geoip2_module > /dev/null 2>&1
-git clone --depth 1 https://github.com/openresty/headers-more-nginx-module > /dev/null 2>&1
-git clone --depth 1 https://github.com/arut/nginx-rtmp-module > /dev/null 2>&1
+git clone --depth 1 --recursive https://github.com/leev/ngx_http_geoip2_module > /dev/null 2>&1
+git clone --depth 1 --recursive https://github.com/openresty/headers-more-nginx-module > /dev/null 2>&1
+git clone --depth 1 --recursive https://github.com/ononoki1/nginx-rtmp-module > /dev/null 2>&1
 echo Build nginx.
 cd ..
 auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
