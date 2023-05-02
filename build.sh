@@ -20,9 +20,9 @@ git clone --depth 1 --recursive https://github.com/openresty/headers-more-nginx-
 git clone --depth 1 --recursive https://github.com/ononoki1/nginx-rtmp-module > /dev/null 2>&1
 echo Build nginx.
 cd ..
+# --add-module=modules/ngx_brotli --add-module=modules/ngx_http_geoip2_module \
+# --add-module=modules/headers-more-nginx-module --add-module=modules/nginx-rtmp-module \
 auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
---add-module=modules/ngx_brotli --add-module=modules/ngx_http_geoip2_module \
---add-module=modules/headers-more-nginx-module \
 --conf-path=/etc/nginx/nginx.conf \
 --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log \
 --pid-path=/var/run/nginx.pid --lock-path=/var/run/nginx.lock \
