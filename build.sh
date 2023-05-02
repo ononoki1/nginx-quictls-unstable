@@ -8,9 +8,9 @@ apt-get install --allow-change-held-packages --allow-downgrades --allow-remove-e
 -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold -fy \
 cmake git libgd-dev libmaxminddb-dev libpcre2-dev mercurial rsync zlib1g-dev > /dev/null 2>&1
 echo Fetch source code.
-hg clone https://hg.nginx.org/nginx > /dev/null 2>&1
-hg clone https://hg.nginx.org/nginx-quic > /dev/null 2>&1
-rsync -r nginx-quic nginx
+hg clone https://hg.nginx.org/nginx
+hg clone https://hg.nginx.org/nginx-quic
+rsync -r nginx-quic/ nginx
 echo Fetch quictls source code.
 mkdir nginx/modules
 cd nginx/modules
