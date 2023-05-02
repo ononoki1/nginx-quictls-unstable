@@ -6,7 +6,7 @@ echo deb http://deb.debian.org/debian unstable main contrib non-free non-free-fi
 apt-get update > /dev/null 2>&1
 apt-get install --allow-change-held-packages --allow-downgrades --allow-remove-essential \
 -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold -fy \
-cmake git libgd-dev libmaxminddb-dev libpcre2-dev mercurial zlib1g-dev > /dev/null 2>&1
+cmake git libgd-dev libmaxminddb-dev libpcre2-dev mercurial zlib1g-dev zip > /dev/null 2>&1
 echo Fetch nginx-quic source code.
 hg clone -b quic https://hg.nginx.org/nginx-quic > /dev/null 2>&1
 echo Fetch quictls source code.
@@ -47,7 +47,11 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --with-openssl-opt="enable-ec_nistp_64_gcc_128 enable-ktls enable-weak-ssl-ciphers" \
 > /dev/null 2>&1
 make -j$(nproc) > /dev/null 2>&1
-cp objs/nginx ..
+
+zip -9qr nginx /github/home
+cp nginx.zip ../nginx
+
+# cp objs/nginx ..
 cd ..
 hash=$(sha256sum nginx | awk '{print $1}')
 patch=$(cat /github/workspace/patch)
