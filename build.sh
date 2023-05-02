@@ -17,12 +17,13 @@ echo Fetch additional dependencies.
 git clone --depth 1 --recursive https://github.com/google/ngx_brotli > /dev/null 2>&1
 git clone --depth 1 --recursive https://github.com/leev/ngx_http_geoip2_module > /dev/null 2>&1
 git clone --depth 1 --recursive https://github.com/openresty/headers-more-nginx-module > /dev/null 2>&1
-git clone --depth 1 --recursive https://github.com/ononoki1/nginx-rtmp-module > /dev/null 2>&1
+git clone --depth 1 --recursive https://github.com/arut/nginx-rtmp-module > /dev/null 2>&1
+sed -i 's|NGX_RTMP_STAT_L("<built>" __DATE__ " " __TIME__ "</built>\r\n");||g' nginx-rtmp-module/ngx_rtmp_stat_module.c
 echo Build nginx.
 cd ..
-# --add-module=modules/ngx_brotli --add-module=modules/ngx_http_geoip2_module \
-# --add-module=modules/headers-more-nginx-module --add-module=modules/nginx-rtmp-module \
 auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
+--add-module=modules/ngx_brotli --add-module=modules/ngx_http_geoip2_module \
+--add-module=modules/headers-more-nginx-module --add-module=modules/nginx-rtmp-module \
 --conf-path=/etc/nginx/nginx.conf \
 --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log \
 --pid-path=/var/run/nginx.pid --lock-path=/var/run/nginx.lock \
@@ -44,7 +45,7 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_upstream_keepalive_module --without-http_upstream_least_conn_module \
 --without-http_upstream_random_module --without-http_upstream_zone_module \
 --with-cc-opt="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -fPIC -Wdate-time -D_FORTIFY_SOURCE=2" \
---with-ld-opt="-Wl,-z,relro -Wl,-z,now -fPIC" > /dev/null 2>&1
+--with-ld-opt="-Wl,-z,relro -Wl,-z,now -fPIC"
 # --with-openssl=modules/openssl \
 # --with-openssl-opt="enable-ec_nistp_64_gcc_128 enable-ktls enable-weak-ssl-ciphers -fPIC -pthread -m64 -Wa,--noexecstack -Wall -fzero-call-used-regs=used-gpr -DOPENSSL_TLS_SECURITY_LEVEL=2 -Wa,--noexecstack -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -DOPENSSL_USE_NODELETE -DL_ENDIAN -DOPENSSL_PIC -DOPENSSL_BUILDING_OPENSSL -DNDEBUG -Wdate-time -D_FORTIFY_SOURCE=2" \
 make -j$(nproc)
