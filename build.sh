@@ -51,6 +51,7 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --with-cc-opt="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -fPIC -Wdate-time -D_FORTIFY_SOURCE=2" \
 --with-ld-opt="-Wl,-z,relro -Wl,-z,now -fPIC"
 make -j$(nproc)
+rm -rf ../nginx
 cp objs/nginx ..
 cd ..
 hash=$(sha256sum nginx | awk '{print $1}')
