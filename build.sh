@@ -6,7 +6,7 @@ echo deb http://deb.debian.org/debian unstable main contrib non-free non-free-fi
 apt-get update > /dev/null 2>&1
 apt-get install --allow-change-held-packages --allow-downgrades --allow-remove-essential \
 -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold -fy \
-cmake git libgd-dev libmaxminddb-dev libpcre2-dev mercurial > /dev/null 2>&1
+cmake git libgd-dev libjemalloc-dev libmaxminddb-dev libpcre2-dev mercurial > /dev/null 2>&1
 echo Fetch NGINX source code.
 hg clone -b quic https://hg.nginx.org/nginx-quic > /dev/null 2>&1
 echo Fetch quictls source code.
@@ -48,10 +48,12 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_upstream_hash_module --without-http_upstream_ip_hash_module \
 --without-http_upstream_keepalive_module --without-http_upstream_least_conn_module \
 --without-http_upstream_random_module --without-http_upstream_zone_module \
---with-zlib=modules/zlib --with-openssl=modules/openssl \
---with-openssl-opt="enable-ec_nistp_64_gcc_128 enable-ktls enable-weak-ssl-ciphers -fPIC -pthread -m64 -Wa,--noexecstack -Wall -fzero-call-used-regs=used-gpr -DOPENSSL_TLS_SECURITY_LEVEL=2 -Wa,--noexecstack -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -DOPENSSL_USE_NODELETE -DL_ENDIAN -DOPENSSL_PIC -DOPENSSL_BUILDING_OPENSSL -DNDEBUG -Wdate-time -D_FORTIFY_SOURCE=2" \
+--with-zlib=modules/zlib \
+--with-zlib-opt="-ljemalloc -O3 -Wall -Wwrite-strings -Wpointer-arith -Wconversion -Wstrict-prototypes -Wmissing-prototypes -Wl,-z,relro -Wl,-z,now -fPIC -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2" \
+--with-openssl=modules/openssl \
+--with-openssl-opt="enable-ec_nistp_64_gcc_128 enable-ktls enable-weak-ssl-ciphers -ljemalloc -fPIC -pthread -m64 -Wa,--noexecstack -Wall -fzero-call-used-regs=used-gpr -DOPENSSL_TLS_SECURITY_LEVEL=2 -Wa,--noexecstack -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -DOPENSSL_USE_NODELETE -DL_ENDIAN -DOPENSSL_PIC -DOPENSSL_BUILDING_OPENSSL -DNDEBUG -Wdate-time -D_FORTIFY_SOURCE=2" \
 --with-cc-opt="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -fPIC -Wdate-time -D_FORTIFY_SOURCE=2" \
---with-ld-opt="-Wl,-z,relro -Wl,-z,now -fPIC" > /dev/null 2>&1
+--with-ld-opt="-ljemalloc -Wl,-z,relro -Wl,-z,now -fPIC" > /dev/null 2>&1
 make -j $(nproc) > /dev/null 2>&1
 cp objs/nginx ..
 cd ..
