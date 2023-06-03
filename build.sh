@@ -15,9 +15,9 @@ cd nginx-quic/modules
 git clone --depth 1 --recursive https://github.com/quictls/openssl > /dev/null 2>&1
 echo Fetch additional dependencies.
 git clone --depth 1 --recursive https://github.com/cloudflare/zlib > /dev/null 2>&1
-#cd zlib
-#make -j $(nproc) -f Makefile.in distclean > /dev/null 2>&1
-#cd ..
+cd zlib
+make -j $(nproc) -f Makefile.in distclean > /dev/null 2>&1
+cd ..
 git clone --depth 1 --recursive https://github.com/google/ngx_brotli > /dev/null 2>&1
 git clone --depth 1 --recursive https://github.com/leev/ngx_http_geoip2_module > /dev/null 2>&1
 git clone --depth 1 --recursive https://github.com/openresty/headers-more-nginx-module > /dev/null 2>&1
