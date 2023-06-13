@@ -4,7 +4,7 @@ echo Install dependencies.
 apt-get update > /dev/null 2>&1
 apt-get install --allow-change-held-packages --allow-downgrades --allow-remove-essential \
 -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold -fy \
-cmake git libgd-dev libmaxminddb-dev libpcre2-dev mercurial > /dev/null 2>&1
+cmake git libmaxminddb-dev libpcre2-dev libzstd-dev mercurial > /dev/null 2>&1
 echo Fetch NGINX source code.
 hg clone -b quic https://hg.nginx.org/nginx-quic > /dev/null 2>&1
 echo Fetch quictls source code.
