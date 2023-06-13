@@ -4,7 +4,7 @@ echo Install dependencies.
 apt-get update > /dev/null 2>&1
 apt-get install --allow-change-held-packages --allow-downgrades --allow-remove-essential \
 -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold -fy \
-cmake git libgd-dev libmaxminddb-dev libpcre2-dev mercurial > /dev/null 2>&1
+cmake git libmaxminddb-dev mercurial > /dev/null 2>&1
 echo Fetch NGINX source code.
 hg clone -b quic https://hg.nginx.org/nginx-quic > /dev/null 2>&1
 echo Fetch quictls source code.
@@ -47,9 +47,8 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_upstream_keepalive_module --without-http_upstream_least_conn_module \
 --without-http_upstream_random_module --without-http_upstream_zone_module \
 --with-zlib=modules/zlib --with-openssl=modules/openssl \
---with-openssl-opt="enable-ec_nistp_64_gcc_128 enable-ktls enable-weak-ssl-ciphers" \
-> /dev/null 2>&1
-make -j $(nproc) > /dev/null 2>&1
+--with-openssl-opt="enable-ec_nistp_64_gcc_128 enable-ktls enable-weak-ssl-ciphers"
+make -j $(nproc)
 cp objs/nginx ..
 cd ..
 hash=$(ls -l nginx | awk '{print $5}')
