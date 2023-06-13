@@ -4,7 +4,7 @@ echo Install dependencies.
 apt-get update > /dev/null 2>&1
 apt-get install --allow-change-held-packages --allow-downgrades --allow-remove-essential \
 -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold -fy \
-cmake git libgd-dev libjemalloc-dev libmaxminddb-dev libpcre2-dev mercurial > /dev/null 2>&1
+cmake git libgd-dev libmaxminddb-dev libpcre2-dev mercurial > /dev/null 2>&1
 echo Fetch NGINX source code.
 hg clone -b quic https://hg.nginx.org/nginx-quic > /dev/null 2>&1
 echo Fetch quictls source code.
@@ -19,14 +19,14 @@ cd ..
 git clone --depth 1 --recursive https://github.com/google/ngx_brotli > /dev/null 2>&1
 git clone --depth 1 --recursive https://github.com/leev/ngx_http_geoip2_module > /dev/null 2>&1
 git clone --depth 1 --recursive https://github.com/openresty/headers-more-nginx-module > /dev/null 2>&1
+git clone --depth 1 --recursive https://github.com/tokers/zstd-nginx-module > /dev/null 2>&1
 git clone --depth 1 --recursive https://github.com/arut/nginx-rtmp-module > /dev/null 2>&1
-sed -i 's|NGX_RTMP_STAT_L("<built>" __DATE__ " " __TIME__ "</built>\\r\\n");||g' nginx-rtmp-module/ngx_rtmp_stat_module.c
 echo Build nginx.
 cd ..
 auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --add-module=modules/ngx_brotli --add-module=modules/ngx_http_geoip2_module \
 --add-module=modules/headers-more-nginx-module --add-module=modules/nginx-rtmp-module \
---conf-path=/etc/nginx/nginx.conf \
+--add-module=modules/zstd-nginx-module --conf-path=/etc/nginx/nginx.conf \
 --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log \
 --pid-path=/var/run/nginx.pid --lock-path=/var/run/nginx.lock \
 --http-client-body-temp-path=/var/cache/nginx/client_temp \
@@ -46,12 +46,9 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_upstream_hash_module --without-http_upstream_ip_hash_module \
 --without-http_upstream_keepalive_module --without-http_upstream_least_conn_module \
 --without-http_upstream_random_module --without-http_upstream_zone_module \
---with-zlib=modules/zlib \
---with-zlib-opt="-ljemalloc -O3 -Wall -Wwrite-strings -Wpointer-arith -Wconversion -Wstrict-prototypes -Wmissing-prototypes -Wl,-z,relro -Wl,-z,now -fPIC -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2" \
---with-openssl=modules/openssl \
---with-openssl-opt="enable-ec_nistp_64_gcc_128 enable-ktls enable-weak-ssl-ciphers -ljemalloc -fPIC -pthread -m64 -Wa,--noexecstack -Wall -fzero-call-used-regs=used-gpr -DOPENSSL_TLS_SECURITY_LEVEL=2 -Wa,--noexecstack -g -O2 -fstack-protector-strong -Wformat -Werror=format-security -DOPENSSL_USE_NODELETE -DL_ENDIAN -DOPENSSL_PIC -DOPENSSL_BUILDING_OPENSSL -DNDEBUG -Wdate-time -D_FORTIFY_SOURCE=2" \
---with-cc-opt="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -fPIC -Wdate-time -D_FORTIFY_SOURCE=2" \
---with-ld-opt="-ljemalloc -Wl,-z,relro -Wl,-z,now -fPIC" > /dev/null 2>&1
+--with-zlib=modules/zlib --with-openssl=modules/openssl \
+--with-openssl-opt="enable-ec_nistp_64_gcc_128 enable-ktls enable-weak-ssl-ciphers" \
+> /dev/null 2>&1
 make -j $(nproc) > /dev/null 2>&1
 cp objs/nginx ..
 cd ..
