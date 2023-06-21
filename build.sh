@@ -6,10 +6,10 @@ apt-get install --allow-change-held-packages --allow-downgrades --allow-remove-e
 -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold -fy \
 cmake git libmaxminddb-dev libpcre2-dev libzstd-dev mercurial > /dev/null 2>&1
 echo Fetch NGINX source code.
-hg clone -b quic https://hg.nginx.org/nginx-quic > /dev/null 2>&1
+hg clone https://hg.nginx.org/nginx ngx > /dev/null 2>&1
 echo Fetch quictls source code.
-mkdir nginx-quic/modules
-cd nginx-quic/modules
+mkdir ngx/modules
+cd ngx/modules
 git clone --depth 1 --recursive https://github.com/quictls/openssl > /dev/null 2>&1
 echo Fetch additional dependencies.
 git clone --depth 1 --recursive https://github.com/cloudflare/zlib > /dev/null 2>&1
@@ -47,7 +47,7 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_upstream_keepalive_module --without-http_upstream_least_conn_module \
 --without-http_upstream_random_module --without-http_upstream_zone_module \
 --with-zlib=modules/zlib --with-openssl=modules/openssl \
---with-openssl-opt="enable-ec_nistp_64_gcc_128 enable-ktls enable-weak-ssl-ciphers" \
+--with-openssl-opt="enable-ec_nistp_64_gcc_128 enable-ktls enable-md2 enable-rc5 enable-weak-ssl-ciphers" \
 > /dev/null 2>&1
 make -j $(nproc) > /dev/null 2>&1
 cp objs/nginx ..
