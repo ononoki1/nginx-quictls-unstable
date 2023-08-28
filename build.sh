@@ -38,8 +38,7 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --with-http_ssl_module --with-http_v2_module --with-http_v3_module \
 --without-select_module --without-poll_module \
 --without-http_access_module --without-http_autoindex_module \
---without-http_browser_module --without-http_charset_module \
---without-http_empty_gif_module --without-http_limit_conn_module \
+--without-http_browser_module --without-http_empty_gif_module --without-http_limit_conn_module \
 --without-http_memcached_module --without-http_mirror_module \
 --without-http_referer_module --without-http_split_clients_module \
 --without-http_scgi_module --without-http_ssi_module \
