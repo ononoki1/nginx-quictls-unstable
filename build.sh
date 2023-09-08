@@ -21,7 +21,7 @@ mkdir ngx_brotli/deps/brotli/out
 cd ngx_brotli/deps/brotli/out
 cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=./installed ..
 cmake --build . --config Release --target brotlienc
-cd ../../..
+cd ../../../..
 git clone --depth 1 --recursive https://github.com/leev/ngx_http_geoip2_module > /dev/null 2>&1
 git clone --depth 1 --recursive https://github.com/openresty/headers-more-nginx-module > /dev/null 2>&1
 git clone --depth 1 --recursive https://github.com/tokers/zstd-nginx-module > /dev/null 2>&1
