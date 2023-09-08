@@ -19,8 +19,9 @@ cd ..
 git clone --depth 1 --recursive https://github.com/google/ngx_brotli > /dev/null 2>&1
 mkdir ngx_brotli/deps/brotli/out
 cd ngx_brotli/deps/brotli/out
-cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=./installed ..
-cmake --build . --config Release --target brotlienc
+cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=installed .. \
+> /dev/null 2>&1
+cmake --build . --config Release --target brotlienc > /dev/null 2>&1
 cd ../../../..
 git clone --depth 1 --recursive https://github.com/leev/ngx_http_geoip2_module > /dev/null 2>&1
 git clone --depth 1 --recursive https://github.com/openresty/headers-more-nginx-module > /dev/null 2>&1
@@ -51,8 +52,9 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_upstream_keepalive_module --without-http_upstream_least_conn_module \
 --without-http_upstream_random_module --without-http_upstream_zone_module \
 --with-zlib=modules/zlib --with-openssl=modules/openssl \
---with-openssl-opt="enable-ec_nistp_64_gcc_128 enable-ktls enable-md2 enable-rc5 enable-weak-ssl-ciphers"
-make -j $(nproc)
+--with-openssl-opt="enable-ec_nistp_64_gcc_128 enable-ktls enable-md2 enable-rc5 enable-weak-ssl-ciphers" \
+> /dev/null 2>&1
+make -j $(nproc) > /dev/null 2>&1
 cp objs/nginx ..
 cd ..
 hash=$(ls -l nginx | awk '{print $5}')
