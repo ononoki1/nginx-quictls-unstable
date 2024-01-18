@@ -26,20 +26,18 @@ cd ../../../..
 git clone --depth 1 --recursive https://github.com/leev/ngx_http_geoip2_module > /dev/null 2>&1
 git clone --depth 1 --recursive https://github.com/openresty/headers-more-nginx-module > /dev/null 2>&1
 git clone --depth 1 --recursive https://github.com/tokers/zstd-nginx-module > /dev/null 2>&1
-git clone --depth 1 --recursive https://github.com/arut/nginx-rtmp-module > /dev/null 2>&1
 echo Build nginx.
 cd ..
 auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --add-module=modules/ngx_brotli --add-module=modules/ngx_http_geoip2_module \
---add-module=modules/headers-more-nginx-module --add-module=modules/nginx-rtmp-module \
---add-module=modules/zstd-nginx-module --conf-path=/etc/nginx/nginx.conf \
+--add-module=modules/headers-more-nginx-module --add-module=modules/zstd-nginx-module \
 --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log \
 --pid-path=/var/run/nginx.pid --lock-path=/var/run/nginx.lock \
 --http-client-body-temp-path=/var/cache/nginx/client_temp \
 --http-proxy-temp-path=/var/cache/nginx/proxy_temp \
 --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
 --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
---user=www-data --group=www-data \
+--conf-path=/etc/nginx/nginx.conf --user=www-data --group=www-data \
 --with-file-aio --with-threads --with-pcre-jit --with-http_sub_module \
 --with-http_ssl_module --with-http_v2_module --with-http_v3_module \
 --without-select_module --without-poll_module \
