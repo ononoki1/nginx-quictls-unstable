@@ -33,5 +33,5 @@ jobs:
         with:
           files: /home/runner/work/_temp/_github_home/nginx
           body: "Size: ${{ env.hash }}"
-          tag_name: v1.${{ env.minor }}.${{ env.patch }}
+          tag_name: v2.${{ env.minor }}.${{ env.patch }}
           generate_release_notes: false
