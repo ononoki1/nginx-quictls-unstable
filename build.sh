@@ -25,12 +25,11 @@ cmake --build . --config Release --target brotlienc > /dev/null 2>&1
 cd ../../../..
 git clone --depth 1 --recursive https://github.com/leev/ngx_http_geoip2_module > /dev/null 2>&1
 git clone --depth 1 --recursive https://github.com/openresty/headers-more-nginx-module > /dev/null 2>&1
-git clone --depth 1 --recursive https://github.com/tokers/zstd-nginx-module > /dev/null 2>&1
 echo Build nginx.
 cd ..
 auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --add-module=modules/ngx_brotli --add-module=modules/ngx_http_geoip2_module \
---add-module=modules/headers-more-nginx-module --add-module=modules/zstd-nginx-module \
+--add-module=modules/headers-more-nginx-module \
 --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log \
 --pid-path=/var/run/nginx.pid --lock-path=/var/run/nginx.lock \
 --http-client-body-temp-path=/var/cache/nginx/client_temp \
